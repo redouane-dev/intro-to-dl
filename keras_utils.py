@@ -3,7 +3,7 @@
 from collections import defaultdict
 import numpy as np
 from keras.models import save_model
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import keras
 from keras import backend as K
 import tqdm_utils
@@ -75,5 +75,8 @@ def reset_tf_session():
     config = tf.ConfigProto()
     config.gpu_options.allow_growth = True
     s = tf.InteractiveSession(config=config)
-    K.set_session(s)
+    
+    # K.set_session(s)
+    tf.keras.backend.set_session(tf.Session(config=config));
+
     return s
